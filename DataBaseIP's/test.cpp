@@ -18,10 +18,14 @@ string getIP(string record){
     int contEsp = 0;
     int indexBeg;
     int indexEnd;
+    bool aux = true;
     for(int i = 0; i < record.length(); i++){
         if(record[i] == ' ') contEsp ++;
-        if(contEsp == 3) indexBeg = i + 1;
-        if(contEsp == 4) indexEnd = i - 1;
+        if(contEsp == 3 && aux) indexBeg = i + 1 , aux = false;
+        if(contEsp == 4){
+            indexEnd = i - 1;
+            break;
+        }
     }
     return record.substr(indexBeg, indexEnd); // "112.12.122.12.1111"
 } // Time Complexity O(n)
