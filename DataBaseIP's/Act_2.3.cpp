@@ -26,26 +26,35 @@ string getIP(string record){
     return record.substr(indexBeg, indexEnd); // "112.12.122.12.1111"
 } // Time Complexity O(n)
 
+//Modify the IP to have the same length
 string configStr(string IP){ // 14
-    int first3 = 3;
-    int first2 = 2;
-    int second3 = 3;
-    int second2 = 2;
+    int first3, second3 = 3;
+    int first2, second2 = 2;
+    int dot = 0;
 
-    int cont = 0;
-
-    if(IP.length() < 14){
-        for(int i = 0; i < IP.length(); i++){
-        
+    if(IP.length() < 18){
+        for(int i = IP.length()-5; i >= 0; i--){
+            if (IP[i] == '.') dot++;
+            else if (dot == 0) second2--;
+            else if (dot == 1) second3--;
+            else if (dot == 2) first2--;
+            else if (dot == 3) first3--;
+            if (second2 != 0 && dot == 1) IP.insert(i,"0");
+            else if (second3 != 0 && dot == 2) IP.insert(i,"0");
+            else if (first2 != 0 && dot == 3) IP.insert(i,"0");
+            else if (first3 != 0 && i == 0) IP.insert(i-1,"0");
         }
     }
+    return IP;
 }
 
+//Delete "." and ":" from the IP to sort it as an integer
 int getNumberIP(string IP){
     string IP = getIP(IP);
     for(int i = 0; i < IP.length(); i++){
-        if(IP[i] == '.')
+        if(IP[i] == '.' || IP[i] == ':') IP.erase(i);
     }
+    return stoi(IP);
 }
 
 int getDate(string record){
