@@ -19,13 +19,11 @@ string getIP(string record){
     int indexBeg;
     int indexEnd;
     bool aux = true;
+    bool aux2 = true;
     for(int i = 0; i < record.length(); i++){
         if(record[i] == ' ') contEsp ++;
         if(contEsp == 3 && aux) indexBeg = i + 1 , aux = false;
-        if(contEsp == 4){
-            indexEnd = i - 1;
-            break;
-        }
+        if(contEsp == 4 && aux2) indexEnd = i - indexBeg , aux2 = false;
     }
     return record.substr(indexBeg, indexEnd); // "112.12.122.12.1111"
 } // Time Complexity O(n)
@@ -37,15 +35,16 @@ string configStr(string IP){ // 14
     int dot = 0;
 
     if(IP.length() < 18){
-        for(int i = IP.length()-5; i >= 0; i--){
-            if (IP[i] == '.') dot++;
-            else if (dot == 0) second2--;
-            else if (dot == 1) second3--;
+        for(int i = IP.length()-5; i >= 0; i--){ // 14 - 5 = 9, 8
+            if (IP[i] == '.') dot++; // dot = 1
+            else if (dot == 0) second2--; // second2 = 1
+            else if (dot == 1) second3--; // second3 = 2
             else if (dot == 2) first2--;
             if (second2 != 0 && dot == 1) IP.insert(i,"0");
             else if (second3 != 0 && dot == 2) IP.insert(i,"0");
             else if (first2 != 0 && dot == 3) IP.insert(i,"0");
         }
+        cout << second2 << endl;
     }
     return IP;
 }
