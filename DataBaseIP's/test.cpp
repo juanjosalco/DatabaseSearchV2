@@ -47,11 +47,11 @@ string configStr(string IP){ // 14
 }
 
 //Delete "." and ":" from the IP to sort it as an integer
-int getNumberIP(string IP){
+string getNumberIP(string IP){
     for(int i = 0; i < IP.length(); i++){
         if(IP[i] == '.' || IP[i] == ':') IP.erase(i);
     }
-    return stoi(IP);
+    return IP;
 }
 
 // -------------- Store the sorting result -----------------
@@ -69,19 +69,13 @@ int main(){
     fflush(stdin);
     vector<string> info;
     string record;
-    string IP;
-    string number;
-    string startIP, endIP;
     ifstream MyReadFile("test.txt");
     while(getline(MyReadFile, record)){
         info.push_back(record);
     }
     MyReadFile.close();
-    configStr(getIP(record));
-    number = getNumberIP(IP);
-    cout << number << endl;
     
-    //sort(info.begin() + 6, info.end());
-    
+    cout << info[0] << endl;
+    cout << configStr(getIP(info[0])) << endl;
     return 0;
 }
