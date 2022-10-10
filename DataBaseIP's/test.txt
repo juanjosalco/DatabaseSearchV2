@@ -1,6 +1,0 @@
-Aug 28 23:07:49 87.3.94.6:6710 Failed password for root
-Aug 28 23:07:49 897.5.984.6:6610 Failed password for root
-Aug 28 23:07:49 897.53.984.60:6710 Failed password for root
-Aug 28 23:07:49 897.53.984.6:6710 Failed password for root
-Aug 28 23:07:49 89.53.984.6:6710 Failed password for root
-Aug 28 23:07:49 897.3.94.6:6710 Failed password for root

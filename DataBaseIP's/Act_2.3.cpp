@@ -54,7 +54,6 @@ string configStr(string IP){ // 14
 
 //Delete "." and ":" from the IP to sort it as an integer
 int getNumberIP(string IP){
-    string IP = getIP(IP);
     for(int i = 0; i < IP.length(); i++){
         if(IP[i] == '.' || IP[i] == ':') IP.erase(i);
     }
