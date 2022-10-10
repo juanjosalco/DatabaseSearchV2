@@ -14,30 +14,6 @@
 
 using namespace std;
 
-struct Node{
-    int val;
-    Node *prev, *next;
-};
-
-Node* insertNodeEnd(Node *head, int val){
-    Node *newNode = new Node();
-    newNode->val = val;
-    newNode->prev = newNode->next = NULL;
-    Node *curr = head;
-    if(!head){
-        return newNode;
-    }
-
-    while (curr->next != NULL){
-        curr = curr->next;
-    }
-    curr->next = newNode;
-    newNode->prev = curr;
-    return head;
-} // Time Complexity O(n)
-
-
-
 string getIP(string record){
     int contEsp = 0;
     int indexBeg;
@@ -54,28 +30,33 @@ string getIP(string record){
 
 //Modify the IP to have the same length
 string configStr(string IP){ // 14
-    int first2 = 2,  second2 = 2, first3 = 3;
-    int cont = 0;
+    int consts = 0;
+    int constt = 0;
+    int constf = 0;
+    int dot = 0;
 
-    for(int i = IP.length()-6; i >= 0; i--){ // 14 - 6 = 8
-        if(IP[i] != '.'){
-            cont++;
-        } else{
-            if(cont == first2){
-                continue;
-            } else{
-                IP[i] = '0';
-                cont = 0;
-            }
-            if(cont <= first3){
-                continue;
-            } else{
-                IP[i] = '0';
-                cont = 0;
-            }
+    
+    for(int i = IP.length()-6; i >= 0; i--){ // 14 - 5 = 9, 8
+        //cout << IP[i] << endl;
+        if (IP[i] == '.') dot++; // dot = 1
+        else if (dot == 0) consts++; // second2 = 1
+        else if (dot == 1) constt++; // second3 = 2
+        else if (dot == 2) constf++;
+        if (consts < 2 && dot == 1){
+            IP[i] = '0';
+            consts++;
         }
-        cout << IP << endl;
+        else if (constt < 3 && dot == 2){
+            IP[i] = '0';
+            constt++;
+            if(constt < 3) IP.insert(i,"0");
+        }
+        else if (constf < 2 && dot == 3){
+            IP[i] = '0';
+            constf++;
+        }
     }
+    
     return IP;
 }
 
@@ -92,18 +73,6 @@ long int getNumberIP(string IP){
     return stol(newStr);
 }
 
-
-
-
-
-createLinkedList
-
-
-
-
-
-
-
 // -------------- Store the sorting result -----------------
 void showSelectedRange(vector<string> info, int start, int end){
     // newBitacora.txt
@@ -117,7 +86,6 @@ void showSelectedRange(vector<string> info, int start, int end){
 
 int main(){
     fflush(stdin);
-    struct Node *head = NULL;
     vector<string> info;
     string record;
     ifstream MyReadFile("test.txt");
@@ -126,7 +94,7 @@ int main(){
     }
     MyReadFile.close();
     
-    cout << info[1] << endl;
-    cout << getNumberIP(configStr(getIP(info[1]))) << endl;
+    cout << info[0] << endl;
+    cout << getNumberIP(configStr(getIP(info[0]))) << endl;
     return 0;
 }
