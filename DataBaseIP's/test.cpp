@@ -14,6 +14,30 @@
 
 using namespace std;
 
+struct Node{
+    int val;
+    Node *prev, *next;
+};
+
+Node* insertNodeEnd(Node *head, int val){
+    Node *newNode = new Node();
+    newNode->val = val;
+    newNode->prev = newNode->next = NULL;
+    Node *curr = head;
+    if(!head){
+        return newNode;
+    }
+
+    while (curr->next != NULL){
+        curr = curr->next;
+    }
+    curr->next = newNode;
+    newNode->prev = curr;
+    return head;
+} // Time Complexity O(n)
+
+
+
 string getIP(string record){
     int contEsp = 0;
     int indexBeg;
@@ -30,32 +54,55 @@ string getIP(string record){
 
 //Modify the IP to have the same length
 string configStr(string IP){ // 14
-    int second3 = 3;
-    int first2, second2 = 2;
-    int dot = 0;
+    int first2 = 2,  second2 = 2, first3 = 3;
+    int cont = 0;
 
-    if(IP.length() < 18){
-        for(int i = IP.length()-5; i >= 0; i--){ // 14 - 5 = 9, 8
-            if (IP[i] == '.') dot++; // dot = 1
-            else if (dot == 0) second2--; // second2 = 1
-            else if (dot == 1) second3--; // second3 = 2
-            else if (dot == 2) first2--;
-            if (second2 != 0 && dot == 1) IP.insert(i,"0");
-            else if (second3 != 0 && dot == 2) IP.insert(i,"0");
-            else if (first2 != 0 && dot == 3) IP.insert(i,"0");
+    for(int i = IP.length()-6; i >= 0; i--){ // 14 - 6 = 8
+        if(IP[i] != '.'){
+            cont++;
+        } else{
+            if(cont == first2){
+                continue;
+            } else{
+                IP[i] = '0';
+                cont = 0;
+            }
+            if(cont <= first3){
+                continue;
+            } else{
+                IP[i] = '0';
+                cont = 0;
+            }
         }
-        cout << second2 << endl;
+        cout << IP << endl;
     }
     return IP;
 }
 
 //Delete "." and ":" from the IP to sort it as an integer
-string getNumberIP(string IP){
+long int getNumberIP(string IP){
+    string newStr;
     for(int i = 0; i < IP.length(); i++){
-        if(IP[i] == '.' || IP[i] == ':') IP.erase(i);
+        if(IP[i] != ':' && IP[i] != '.'){
+            newStr += IP[i];
+        } else{
+            continue;
+        }
     }
-    return IP;
+    return stol(newStr);
 }
+
+
+
+
+
+createLinkedList
+
+
+
+
+
+
 
 // -------------- Store the sorting result -----------------
 void showSelectedRange(vector<string> info, int start, int end){
@@ -70,6 +117,7 @@ void showSelectedRange(vector<string> info, int start, int end){
 
 int main(){
     fflush(stdin);
+    struct Node *head = NULL;
     vector<string> info;
     string record;
     ifstream MyReadFile("test.txt");
@@ -78,7 +126,7 @@ int main(){
     }
     MyReadFile.close();
     
-    cout << info[0] << endl;
-    cout << configStr(getIP(info[0])) << endl;
+    cout << info[1] << endl;
+    cout << getNumberIP(configStr(getIP(info[1]))) << endl;
     return 0;
 }
