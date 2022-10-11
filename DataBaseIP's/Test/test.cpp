@@ -83,6 +83,7 @@ int main(){
     fflush(stdin);
     vector<string> info;
     string record;
+    string startIP, endIP;
     ifstream MyReadFile("test.txt");
     while(getline(MyReadFile, record)){
         info.push_back(record);
@@ -92,5 +93,18 @@ int main(){
     cout << info[4] << endl;
     cout << getIP(info[4])<< endl;
     cout << configStr(getIP(info[4]))<< endl;
+    cout << "\nIngresa la IP de Inicio de Búsqueda en el Siguiente Formato: " << endl;
+    cout << "Example: 450.25.888.72:5978: ";
+
+    getline(cin, startIP);
+    cout << "Ingresa la IP de Final de Búsqueda en el Siguiente Formato: " << endl;
+    cout << "Example: 110.17.289.74:5362: ";
+    getline(cin, endIP);
+    cout << "\n\n";
+    cout << configStr(startIP)<< endl;
+    cout << configStr(endIP)<< endl;
+
+    //showSelectedRange(info, sequentialSearch(info, startIP), inverseSequentialSearch(info, endIP));
+    //cout << "\nRango Seleccionado Enviado a La Base de Datos" << endl;
     return 0;
 }
