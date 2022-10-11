@@ -12,6 +12,7 @@
 #include <fstream>
 #include <algorithm>
 
+
 using namespace std;
 
 string getIP(string record){
@@ -169,30 +170,33 @@ int main(){
         info.push_back(record);
     }
     MyReadFile.close();
-    cout << "tu mama" << endl;
+    //cout << "tu mama" << endl;
     // cout << info[4] << endl;
     // cout << getIP(info[4])<< endl;
-    // cout << configStr(getIP(info[4]))<< endl;
-    // cout << configStr(getIP(info[4]))<< endl;
+    cout << getNumberIP(configStr(getIP("Aug 28 23:07:49 87.3.94.6:6710 Failed password for root")))<< endl;
+    //cout << getNumberIP(configStr(getIP(info[0])))<< endl;
 
-    cout << "\nIngresa la IP de Inicio de Búsqueda en el Siguiente Formato: " << endl;
-    cout << "Example: 450.25.888.72:5978: ";
-    getline(cin, startIP);
-    cout << "Ingresa la IP de Final de Búsqueda en el Siguiente Formato: " << endl;
-    cout << "Example: 110.17.289.74:5362: ";
-    getline(cin, endIP);
-    cout << "\n\n";
+
+
+    // cout << "Ingresa la IP de Inicio de Búsqueda en el Siguiente Formato: " << endl;
+    // cout << "Example: 450.25.888.72:5978: ";
+    // getline(cin, startIP);
+    // cout << "Ingresa la IP de Final de Búsqueda en el Siguiente Formato: " << endl;
+    // cout << "Example: 110.17.289.74:5362: ";
+    // getline(cin, endIP);
+    //cout << "\n\n";
 
     // cout << configStr(startIP)<< endl;
     // cout << configStr(endIP)<< endl;
-    showSelectedRange(info, sequentialSearch(info, startIP), inverseSequentialSearch(info, endIP));
-    cout << "\nRango Seleccionado Enviado a La Base de Datos" << endl;
+
+    // showSelectedRange(info, sequentialSearch(info, startIP), inverseSequentialSearch(info, endIP));
+    // cout << "\nRango Seleccionado Enviado a La Base de Datos" << endl;
+
     // cout << info[0] << endl;
     // mergeSort(info, 0, info.size()-1);
     // cout << info[0] << endl;
     return 0;
-
-    //showSelectedRange(info, sequentialSearch(info, startIP), inverseSequentialSearch(info, endIP));
-    //cout << "\nRango Seleccionado Enviado a La Base de Datos" << endl;
 }
 
+
+    
