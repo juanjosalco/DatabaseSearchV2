@@ -61,12 +61,92 @@ string configStr(string IP){ // 14
 }
 
 //Delete "." and ":" from the IP to sort it as an integer
-string getNumberIP(string IP){
+long int getNumberIP(string IP){
+    string newStr;
     for(int i = 0; i < IP.length(); i++){
-        if(IP[i] == '.' || IP[i] == ':') IP.erase(i);
+        if(IP[i] != ':' && IP[i] != '.'){
+            newStr += IP[i];
+        } else{
+            continue;
+        }
     }
-    return IP;
+    return stol(newStr);
 }
+
+// ----- Part of mergeSort Function --------
+void merge(vector<string> &data, int inicio, int mid, int final){
+    int numIzq = mid - inicio + 1;
+    int numDer = final - mid;
+
+    vector<string> vecIzq;
+    vector<string> vecDer;
+
+    for(int i = 0; i < numIzq; i++){
+        vecIzq.push_back(data[inicio + i]);
+    }
+    for(int i = 0; i < numDer; i++){
+        vecDer.push_back(data[mid + 1 + i]);
+    }
+
+    int i = 0;
+    int j = 0; 
+    int k = inicio;
+
+
+    while(i < numIzq && j < numDer){
+        
+        if(getNumberIP(configStr(getIP(vecIzq[i]))) < getNumberIP(configStr(getIP(vecDer[j])))){
+            data[k] = vecIzq[i];
+            i++;
+        }
+        else{
+            data[k] = vecDer[j];
+            j++;
+        }
+        k++;
+    }
+
+    while(j < numDer){
+        data[k] = vecDer[j];
+        j++;
+        k++;
+    }
+    while(i < numIzq){
+        data[k] = vecIzq[i];
+        i++;
+        k++;
+    }
+} // Time Complexity O(n)
+
+void mergeSort(vector<string> &data, int inicio, int final){
+    if(inicio < final){
+        int mid = inicio + (final - inicio) / 2;
+        mergeSort(data, inicio, mid);
+        mergeSort(data, mid + 1, final);
+        merge(data, inicio, mid, final);
+
+    } // Final Time Complexity O(n log n)
+}
+
+// -------------- Sequential Search -----------------
+
+int sequentialSearch(vector<string> &info, string IP){
+    for(int i = 0; i < info.size(); i++){
+        if(getNumberIP(configStr(IP))>= getNumberIP(configStr(getIP(info[i])))){
+            return i;
+        }
+    }
+    return -1;
+} // Time Complexity O(n)
+
+int inverseSequentialSearch(vector<string> &info, string IP){
+    for(int i = info.size(); i > 0; i--){
+        if(getNumberIP(configStr(IP)) >= getNumberIP(configStr(getIP(info[i])))){
+            return i-1;
+        }
+    }
+    return -1;
+} // Time Complexity O(n)
 
 // -------------- Store the sorting result -----------------
 void showSelectedRange(vector<string> info, int start, int end){
@@ -90,21 +170,29 @@ int main(){
     }
     MyReadFile.close();
     cout << "tu mama" << endl;
-    cout << info[4] << endl;
-    cout << getIP(info[4])<< endl;
-    cout << configStr(getIP(info[4]))<< endl;
+    // cout << info[4] << endl;
+    // cout << getIP(info[4])<< endl;
+    // cout << configStr(getIP(info[4]))<< endl;
+    // cout << configStr(getIP(info[4]))<< endl;
+
     cout << "\nIngresa la IP de Inicio de Búsqueda en el Siguiente Formato: " << endl;
     cout << "Example: 450.25.888.72:5978: ";
-
     getline(cin, startIP);
     cout << "Ingresa la IP de Final de Búsqueda en el Siguiente Formato: " << endl;
     cout << "Example: 110.17.289.74:5362: ";
     getline(cin, endIP);
     cout << "\n\n";
-    cout << configStr(startIP)<< endl;
-    cout << configStr(endIP)<< endl;
+
+    // cout << configStr(startIP)<< endl;
+    // cout << configStr(endIP)<< endl;
+    showSelectedRange(info, sequentialSearch(info, startIP), inverseSequentialSearch(info, endIP));
+    cout << "\nRango Seleccionado Enviado a La Base de Datos" << endl;
+    // cout << info[0] << endl;
+    // mergeSort(info, 0, info.size()-1);
+    // cout << info[0] << endl;
+    return 0;
 
     //showSelectedRange(info, sequentialSearch(info, startIP), inverseSequentialSearch(info, endIP));
     //cout << "\nRango Seleccionado Enviado a La Base de Datos" << endl;
-    return 0;
 }
+
