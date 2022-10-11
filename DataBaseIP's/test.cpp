@@ -128,6 +128,26 @@ void mergeSort(vector<string> &data, int inicio, int final){
     } // Final Time Complexity O(n log n)
 }
 
+// -------------- Sequential Search -----------------
+
+int sequentialSearch(vector<string> &info, string IP){
+    for(int i = 0; i < info.size(); i++){
+        if(getNumberIP(configStr(getIP(info[i]))) >= getNumberIP(configStr(IP))){
+            return i;
+        }
+    }
+    return -1;
+} // Time Complexity O👎
+
+int inverseSequentialSearch(vector<string> &info, string IP){
+    for(int i = info.size()-1; i > 0; i--){
+        if(getNumberIP(configStr(getIP(info[i]))) <= getNumberIP(configStr(IP))){
+            return i+1;
+        }
+    }
+    return -1;
+} // Time Complexity O👎return -1;
+
 // -------------- Store the sorting result -----------------
 void showSelectedRange(vector<string> info, int start, int end){
     // newBitacora.txt
@@ -148,8 +168,11 @@ int main(){
         info.push_back(record);
     }
     MyReadFile.close();
-    cout << info[0] << endl;
     mergeSort(info, 0, info.size()-1);
-    cout << info[0] << endl;
+    string startIP = "311.48.840.89:4145";
+    string endIP = "450.24.888.72:5978";
+
+    showSelectedRange(info, sequentialSearch(info, startIP), inverseSequentialSearch(info, endIP));
+    cout << "\nRango Seleccionado Enviado a La Base de Datos" << endl; 
     return 0;
 }
