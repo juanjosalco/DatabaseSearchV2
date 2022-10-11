@@ -3,14 +3,14 @@
 /// Author: Mariana Esquivel Hernandez
 /// date: 10/11/2022
 
-/*#include <bits/stdc++.h>*/
+#include <bits/stdc++.h>
 
-#include <iostream>
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <algorithm>
+// #include <iostream>
+// #include <stdio.h>
+// #include <string>
+// #include <vector>
+// #include <fstream>
+// #include <algorithm>
 
 using namespace std;
 
@@ -73,6 +73,61 @@ long int getNumberIP(string IP){
     return stol(newStr);
 }
 
+// ----- Part of mergeSort Function --------
+void merge(vector<string> &data, int inicio, int mid, int final){
+    int numIzq = mid - inicio + 1;
+    int numDer = final - mid;
+
+    vector<string> vecIzq;
+    vector<string> vecDer;
+
+    for(int i = 0; i < numIzq; i++){
+        vecIzq.push_back(data[inicio + i]);
+    }
+    for(int i = 0; i < numDer; i++){
+        vecDer.push_back(data[mid + 1 + i]);
+    }
+
+    int i = 0;
+    int j = 0; 
+    int k = inicio;
+
+
+    while(i < numIzq && j < numDer){
+        
+        if(getNumberIP(configStr(getIP(vecIzq[i]))) < getNumberIP(configStr(getIP(vecDer[j])))){
+            data[k] = vecIzq[i];
+            i++;
+        }
+        else{
+            data[k] = vecDer[j];
+            j++;
+        }
+        k++;
+    }
+
+    while(j < numDer){
+        data[k] = vecDer[j];
+        j++;
+        k++;
+    }
+    while(i < numIzq){
+        data[k] = vecIzq[i];
+        i++;
+        k++;
+    }
+} // Time Complexity O(n)
+
+void mergeSort(vector<string> &data, int inicio, int final){
+    if(inicio < final){
+        int mid = inicio + (final - inicio) / 2;
+        mergeSort(data, inicio, mid);
+        mergeSort(data, mid + 1, final);
+        merge(data, inicio, mid, final);
+
+    } // Final Time Complexity O(n log n)
+}
+
 // -------------- Store the sorting result -----------------
 void showSelectedRange(vector<string> info, int start, int end){
     // newBitacora.txt
@@ -88,13 +143,13 @@ int main(){
     fflush(stdin);
     vector<string> info;
     string record;
-    ifstream MyReadFile("test.txt");
+    ifstream MyReadFile("bitacora.txt");
     while(getline(MyReadFile, record)){
         info.push_back(record);
     }
     MyReadFile.close();
-    
     cout << info[0] << endl;
-    cout << getNumberIP(configStr(getIP(info[0]))) << endl;
+    mergeSort(info, 0, info.size()-1);
+    cout << info[0] << endl;
     return 0;
 }
