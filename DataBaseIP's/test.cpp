@@ -169,10 +169,17 @@ int main(){
     }
     MyReadFile.close();
     mergeSort(info, 0, info.size()-1);
-    string startIP = "311.48.840.89:4145";
-    string endIP = "450.24.888.72:5978";
+    // string startIP = "311.48.840.89:4145";
+    // string endIP = "450.24.888.72:5978";
 
+    // showSelectedRange(info, sequentialSearch(info, startIP), inverseSequentialSearch(info, endIP));
+    // cout << "\nRango Seleccionado Enviado a La Base de Datos" << endl;     
+    cout << "Ingresa la IP de Inicio de Búsqueda en el Siguiente Formato: " << endl;
+    cout << "Example: 450.25.888.72:5978: ";
+    getline(cin, startIP);
+    cout << "Ingresa la IP de Final de Búsqueda en el Siguiente Formato: " << endl;
+    cout << "Example: 110.17.289.74:5362: ";
+    getline(cin, endIP);
     showSelectedRange(info, sequentialSearch(info, startIP), inverseSequentialSearch(info, endIP));
-    cout << "\nRango Seleccionado Enviado a La Base de Datos" << endl; 
     return 0;
 }
