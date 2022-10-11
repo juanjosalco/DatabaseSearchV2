@@ -1,7 +1,7 @@
 ///Act 2.3 - Integral activity linear data structure (Proficiency Evidence)
 /// Author: Juan Jose Salazar Cortes
 /// Author: Mariana Esquivel Hernandez
-/// date: 10/11/2022
+/// date: 10/10/2022
 
 /*#include <bits/stdc++.h>*/
 
@@ -36,7 +36,6 @@ string configStr(string IP){ // 14
     int constf = 0;
     int dot = 0;
 
-    
     for(int i = IP.length()-6; i >= 0; i--){ // 14 - 5 = 9, 8
         //cout << IP[i] << endl;
         if (IP[i] == '.') dot++; // dot = 1
