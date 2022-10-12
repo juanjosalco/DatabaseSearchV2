@@ -163,6 +163,7 @@ int main(){
     fflush(stdin);
     vector<string> info;
     string record;
+    string startIP, endIP;
     ifstream MyReadFile("bitacora.txt");
     while(getline(MyReadFile, record)){
         info.push_back(record);
